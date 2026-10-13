@@ -3,34 +3,33 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chá Revelação — Alec ou Liz?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#06101e">
+<title>Chá Revelação | Alec ou Liz?</title>
 
 <style>
 :root {
-  --gold: #e7c77c;
-  --navy: #071526;
+  --gold: #e5c477;
+  --navy: #06101e;
 }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+html, body {
+  width: 100%;
+  min-height: 100%;
+  background: var(--navy);
+  color: white;
+  font-family: Georgia, "Times New Roman", serif;
 }
-
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   background:
-    radial-gradient(ellipse at center, #203b52, #07111f 75%);
-  color: #fff8e8;
-  font-family: Georgia, "Times New Roman", serif;
-  text-align: center;
+    radial-gradient(ellipse at 50% 15%, #203957 0%, transparent 55%),
+    linear-gradient(145deg, #020710, #0c1b30, #020710);
 }
+button { font: inherit; }
 
 .stars {
   position: fixed;
@@ -39,318 +38,287 @@ body {
   pointer-events: none;
   z-index: 0;
 }
-
 .star {
   position: absolute;
   color: var(--gold);
   animation: twinkle 2.5s infinite alternate ease-in-out;
 }
-
 @keyframes twinkle {
   from { opacity: .2; transform: scale(.7); }
-  to { opacity: 1; transform: scale(1.3); }
+  to { opacity: .9; transform: scale(1.3); }
 }
 
 .page {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 760px;
+  max-width: 650px;
   margin: auto;
-  padding: 36px 16px 50px;
+  padding: 34px 18px 45px;
+  text-align: center;
 }
-
 .eyebrow {
   color: var(--gold);
-  font: 11px Arial, sans-serif;
-  letter-spacing: 5px;
-  margin-bottom: 25px;
+  font: 10px Arial, sans-serif;
+  letter-spacing: 4px;
+  margin-bottom: 20px;
 }
-
 h1 {
-  font-size: clamp(34px, 8vw, 54px);
+  font-size: clamp(34px, 9vw, 52px);
   font-weight: normal;
   line-height: 1.15;
-  margin-bottom: 18px;
 }
-
-h1 em {
-  color: var(--gold);
-}
-
+h1 em { color: var(--gold); }
 .intro {
-  max-width: 570px;
-  margin: auto;
-  color: #e5dfd3;
-  font-size: clamp(16px, 4vw, 22px);
+  max-width: 430px;
+  margin: 18px auto 0;
+  color: #e2e7ef;
+  font-size: 16px;
   line-height: 1.7;
 }
 
-.envelope-stage {
-  position: relative;
+/* Envelope */
+.stage {
   width: 100%;
-  max-width: 560px;
-  height: 390px;
-  margin: 45px auto 15px;
-  perspective: 1400px;
+  max-width: 390px;
+  height: 285px;
+  margin: 36px auto 12px;
+  position: relative;
+  perspective: 1000px;
 }
-
 .envelope {
   position: absolute;
-  bottom: 12px;
   left: 0;
+  bottom: 10px;
   width: 100%;
-  height: 72%;
-  border: 1px solid #c9a65c;
+  height: 210px;
+  border: 1px solid #c8a65e;
   background: #10263c;
-  box-shadow: 0 20px 55px #0008;
+  box-shadow: 0 20px 45px #0008;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   isolation: isolate;
 }
-
-.envelope-back {
+.back {
   position: absolute;
   inset: 0;
-  background: linear-gradient(140deg, #203d56, #091727);
-  z-index: 0;
+  background: linear-gradient(145deg, #203d56, #071526);
 }
 
-/* O convite fica escondido dentro do envelope antes do toque. */
-.invitation {
+/* Antes de abrir, a imagem fica completamente escondida. */
+.letter {
   position: absolute;
   z-index: 1;
-  left: 7%;
-  bottom: 5%;
   width: 86%;
-  height: auto;
-  max-height: 94%;
+  height: 94%;
+  left: 7%;
+  bottom: 3%;
   object-fit: contain;
-  display: block;
   opacity: 0;
-  transform: translateY(0) scale(.72);
-  transform-origin: center bottom;
+  visibility: hidden;
+  transform: translateY(0) scale(.55);
   transition:
-    transform 1.5s cubic-bezier(.16, 1, .3, 1),
-    opacity .45s ease;
+    transform 1.2s cubic-bezier(.16,1,.3,1),
+    opacity .35s ease,
+    visibility 0s linear 1.2s;
   pointer-events: none;
 }
-
-/* Frente dobrada do envelope. */
-.envelope-front {
+.front {
   position: absolute;
   inset: 0;
   z-index: 4;
   pointer-events: none;
-  background: #10263c;
-  clip-path: polygon(0 0, 50% 53%, 100% 0, 100% 100%, 0 100%);
+  background: linear-gradient(140deg, #18334c, #091727);
+  clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
 }
-
-.envelope-front::after {
+.front::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(140deg, #18334c, #091727);
+  background: linear-gradient(140deg, #24435f, #0b1a2b);
   clip-path: polygon(0 100%, 50% 52%, 100% 100%);
 }
-
 .flap {
   position: absolute;
   z-index: 5;
   top: 0;
   left: 0;
   width: 100%;
-  height: 52%;
+  height: 57%;
   transform-origin: top center;
   transition: transform .85s ease;
-  backface-visibility: visible;
   pointer-events: none;
 }
-
 .flap::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(145deg, #284b68, #12283f);
+  background: linear-gradient(145deg, #294969, #11263c);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   border-top: 1px solid var(--gold);
 }
-
 .seal {
   position: absolute;
   z-index: 6;
   left: 50%;
-  top: 32%;
-  width: 76px;
-  height: 76px;
+  top: 35%;
+  width: 62px;
+  height: 62px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 30% 25%, #ffe7a8, #a77832);
-  border: 3px solid #f5dfa1;
-  box-shadow: 0 5px 18px #0007;
   color: white;
-  font-size: 34px;
+  font-size: 29px;
+  background: radial-gradient(circle at 30% 25%, #ffe7a8, #a77832);
+  border: 2px solid #f5dfa1;
+  box-shadow: 0 5px 18px #0007;
   transition: opacity .4s, transform .5s;
   pointer-events: none;
 }
 
-.envelope.open .flap {
-  transform: rotateX(180deg);
-}
-
+/* A aba abre; a carta começa a emergir. */
+.envelope.open .flap { transform: rotateX(180deg); }
 .envelope.open .seal {
   opacity: 0;
-  transform: translate(-50%, -50%) scale(.2) rotate(35deg);
+  transform: translate(-50%, -50%) scale(.15) rotate(35deg);
 }
-
-/* O convite sobe, aumenta e passa para fora do envelope. */
-.envelope.open .invitation {
+.envelope.open .letter {
+  visibility: visible;
   opacity: 1;
-  transform: translateY(-90px) scale(1.05);
-  transition-delay: .3s;
+  transform: translateY(-90px) scale(.95);
+  transition:
+    transform 1.15s cubic-bezier(.16,1,.3,1) .2s,
+    opacity .4s ease .2s,
+    visibility 0s;
 }
 
 .hint {
-  margin-top: 18px;
-  color: var(--gold);
-  font: 12px Arial, sans-serif;
-  letter-spacing: 2px;
-  animation: breathe 1.6s infinite alternate;
-}
-
-@keyframes breathe {
-  to { opacity: .55; }
-}
-
-/* Zoom cinematográfico após o convite sair do envelope. */
-.zoom-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  background: #030914;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 14px;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .65s ease, visibility .65s;
-}
-
-.zoom-overlay.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.zoom-image {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: 96vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border: 2px solid var(--gold);
-  box-shadow: 0 0 50px #000;
-  transform: scale(.55);
-  opacity: 0;
-  transition:
-    transform 1s cubic-bezier(.16, 1, .3, 1),
-    opacity .5s ease;
-}
-
-.zoom-overlay.show .zoom-image {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.zoom-close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  border: 1px solid var(--gold);
-  border-radius: 30px;
-  padding: 11px 16px;
-  background: #13243a;
-  color: white;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.zoom-caption {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
   color: var(--gold);
   font: 11px Arial, sans-serif;
   letter-spacing: 2px;
-  text-align: center;
+  margin-top: 15px;
+  animation: breathe 1.6s infinite alternate;
+}
+@keyframes breathe { to { opacity: .5; } }
+
+/* Zoom: ocupa a tela do celular sem cortar a imagem. */
+.zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  background: rgba(2, 7, 16, .98);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:
+    max(56px, env(safe-area-inset-top))
+    8px
+    max(45px, env(safe-area-inset-bottom));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .55s ease, visibility .55s;
+}
+.zoom.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.zoom img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 1px solid #d5b66c;
+  box-shadow: 0 0 45px #000;
+  transform: scale(.45);
+  opacity: 0;
+  transition: transform 1s cubic-bezier(.16,1,.3,1), opacity .5s ease;
+}
+.zoom.show img {
+  transform: scale(1);
+  opacity: 1;
+}
+.close-zoom {
+  position: absolute;
+  z-index: 2;
+  top: max(10px, env(safe-area-inset-top));
+  right: 12px;
+  border: 1px solid var(--gold);
+  border-radius: 24px;
+  padding: 10px 15px;
+  background: #13243a;
+  color: white;
+  font: 12px Arial, sans-serif;
+}
+.zoom-caption {
+  position: absolute;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  left: 8px;
+  right: 8px;
+  color: var(--gold);
+  font: 9px Arial, sans-serif;
+  letter-spacing: 2px;
 }
 
+/* Informações e botões */
 .details {
-  max-width: 500px;
-  margin: 32px auto 0;
-  padding: 24px 18px;
+  max-width: 450px;
+  margin: 35px auto 0;
+  padding: 23px 15px;
   border: 1px solid #c9a65c77;
   background: #061323aa;
   line-height: 1.9;
 }
-
 .details h2 {
   color: var(--gold);
   font-size: 27px;
   font-weight: normal;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
-
-.details p {
-  font-size: 16px;
-  margin: 10px 0;
-}
-
+.details p { font-size: 15px; margin: 9px 0; }
 .buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   margin-top: 20px;
 }
-
 .btn {
   display: inline-block;
-  padding: 13px 20px;
+  padding: 13px 17px;
   border: 1px solid var(--gold);
-  border-radius: 30px;
+  border-radius: 25px;
   background: #10243b;
   color: white;
   text-decoration: none;
-  font: 13px Arial, sans-serif;
+  font: 12px Arial, sans-serif;
   cursor: pointer;
 }
-
 .btn.gold {
   background: linear-gradient(135deg, #f0d18b, #b98b3d);
   color: #071526;
   font-weight: bold;
 }
-
 .footer {
   color: #d8c89f;
-  font-size: 11px;
+  font: 10px Arial, sans-serif;
   letter-spacing: 3px;
-  margin-top: 30px;
+  margin-top: 28px;
 }
-
 .confetti {
   position: fixed;
-  top: -20px;
-  z-index: 30;
+  top: -25px;
+  z-index: 60;
   pointer-events: none;
   animation: fall var(--duration) linear forwards;
 }
-
 @keyframes fall {
   to {
     transform: translate(var(--drift), 110vh) rotate(700deg);
@@ -359,16 +327,13 @@ h1 em {
 }
 
 @media (max-width: 500px) {
-  .page { padding-top: 30px; }
-  .envelope-stage { height: 290px; margin-top: 38px; }
-  .envelope { height: 72%; }
-  .seal { width: 62px; height: 62px; font-size: 28px; }
-  .envelope.open .invitation {
-    transform: translateY(-65px) scale(1.04);
-  }
+  .page { padding: 28px 15px 35px; }
+  .stage { height: 255px; margin-top: 30px; }
+  .envelope { height: 190px; }
+  .seal { width: 57px; height: 57px; }
   .details { padding: 20px 12px; }
+  .zoom { padding-left: 5px; padding-right: 5px; }
 }
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
@@ -383,35 +348,25 @@ h1 em {
 
 <main class="page">
   <div class="eyebrow">UM MOMENTO CHEIO DE AMOR</div>
-
   <h1>Você recebeu um convite<br><em>especial</em></h1>
-
   <p class="intro">
-    Uma surpresa está prestes a chegar.
-    Toque no selo para abrir o envelope e revelar o convite.
+    Uma surpresa está chegando…<br>
+    Toque no selo para abrir o envelope.
   </p>
 
-  <div class="envelope-stage">
+  <div class="stage">
     <button class="envelope" id="envelope" type="button"
-      aria-label="Abrir envelope do convite">
-      <div class="envelope-back"></div>
-
-      <img
-        src="convite.png"
-        class="invitation"
-        id="invitation"
-        alt="Convite do chá revelação Alec ou Liz"
-      >
-
-      <div class="envelope-front"></div>
+      aria-label="Abrir envelope">
+      <div class="back"></div>
+      <img src="convite.png" class="letter" id="letter"
+        alt="Convite do chá revelação">
+      <div class="front"></div>
       <div class="flap"></div>
       <div class="seal">♥</div>
     </button>
   </div>
 
-  <div class="hint" id="hint">
-    ✦ TOQUE NO SELO PARA ABRIR ✦
-  </div>
+  <div class="hint" id="hint">✦ TOQUE NO SELO PARA ABRIR ✦</div>
 
   <section class="details">
     <h2>Alec ou Liz?</h2>
@@ -424,52 +379,55 @@ h1 em {
     <div class="buttons">
       <a class="btn gold"
         href="https://www.google.com/maps/search/?api=1&query=Rua+Agostiniana+Chantal+30+Jardim+Vila+Carr%C3%A3o"
-        target="_blank" rel="noopener">
-        Ver localização
-      </a>
-      <button class="btn" id="viewInvite" type="button">
-        Ampliar convite
-      </button>
-      <button class="btn" id="reset" type="button">
-        Fechar envelope
-      </button>
+        target="_blank" rel="noopener">📍 Ver localização</a>
+      <button class="btn" id="viewInvite" type="button">Ampliar convite</button>
+      <button class="btn" id="reset" type="button">Fechar envelope</button>
     </div>
   </section>
 
   <div class="footer">FEITO COM AMOR ♡</div>
 </main>
 
-<div class="zoom-overlay" id="zoomOverlay" aria-hidden="true">
-  <button class="zoom-close" id="zoomClose" type="button">✕ Fechar</button>
-  <img class="zoom-image" id="zoomImage" src="convite.png"
-    alt="Convite completo do chá revelação">
+<div class="zoom" id="zoom" aria-hidden="true">
+  <button class="close-zoom" id="closeZoom" type="button">✕ Fechar</button>
+  <img src="convite.png" id="zoomImage" alt="Convite completo">
   <div class="zoom-caption">ALEX OU LIZ? · UM MOMENTO ESPECIAL</div>
 </div>
 
 <script>
 const envelope = document.getElementById('envelope');
-const hint = document.getElementById('hint');
-const zoomOverlay = document.getElementById('zoomOverlay');
+const letter = document.getElementById('letter');
+const zoom = document.getElementById('zoom');
 const zoomImage = document.getElementById('zoomImage');
-const resetButton = document.getElementById('reset');
-const viewButton = document.getElementById('viewInvite');
+const hint = document.getElementById('hint');
 let opened = false;
 
-function confetti() {
+function makeConfetti() {
   const symbols = ['✦', '♡', '✧', '♥'];
-
-  for (let i = 0; i < 32; i++) {
-    const item = document.createElement('span');
-    item.className = 'confetti';
-    item.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    item.style.left = Math.random() * 100 + 'vw';
-    item.style.color = ['#e7c77c', '#ffacd0', '#a6d9ff', '#ffffff'][Math.floor(Math.random() * 4)];
-    item.style.fontSize = (12 + Math.random() * 15) + 'px';
-    item.style.setProperty('--duration', (2.5 + Math.random() * 2.5) + 's');
-    item.style.setProperty('--drift', ((Math.random() - .5) * 160) + 'px');
-    document.body.appendChild(item);
-    setTimeout(() => item.remove(), 5200);
+  for (let i = 0; i < 28; i++) {
+    const piece = document.createElement('span');
+    piece.className = 'confetti';
+    piece.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.color = ['#e5c477', '#ffacd0', '#a6d9ff', '#ffffff'][Math.floor(Math.random() * 4)];
+    piece.style.fontSize = (12 + Math.random() * 14) + 'px';
+    piece.style.setProperty('--duration', (2.5 + Math.random() * 2) + 's');
+    piece.style.setProperty('--drift', ((Math.random() - .5) * 150) + 'px');
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 5000);
   }
+}
+
+function showZoom() {
+  zoom.classList.add('show');
+  zoom.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeZoom() {
+  zoom.classList.remove('show');
+  zoom.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
 }
 
 function openEnvelope() {
@@ -477,26 +435,13 @@ function openEnvelope() {
     showZoom();
     return;
   }
-
   opened = true;
   envelope.classList.add('open');
   hint.textContent = '✦ SEU CONVITE ESTÁ SENDO REVELADO ✦';
-  confetti();
+  makeConfetti();
 
-  /* Primeiro a aba abre e o convite sobe; depois ele ocupa a tela. */
-  setTimeout(showZoom, 1450);
-}
-
-function showZoom() {
-  zoomOverlay.classList.add('show');
-  zoomOverlay.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeZoom() {
-  zoomOverlay.classList.remove('show');
-  zoomOverlay.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
+  /* O zoom entra depois que a aba começa a abrir. */
+  setTimeout(showZoom, 1050);
 }
 
 function resetEnvelope() {
@@ -508,22 +453,20 @@ function resetEnvelope() {
 }
 
 envelope.addEventListener('click', openEnvelope);
-viewButton.addEventListener('click', showZoom);
-resetButton.addEventListener('click', resetEnvelope);
-document.getElementById('zoomClose').addEventListener('click', closeZoom);
+document.getElementById('viewInvite').addEventListener('click', showZoom);
+document.getElementById('reset').addEventListener('click', resetEnvelope);
+document.getElementById('closeZoom').addEventListener('click', closeZoom);
 
-zoomOverlay.addEventListener('click', function(event) {
-  if (event.target === zoomOverlay) closeZoom();
+zoom.addEventListener('click', function(event) {
+  if (event.target === zoom) closeZoom();
 });
-
 document.addEventListener('keydown', function(event) {
   if (event.key === 'Escape') closeZoom();
 });
 
-/* Estrelinhas animadas ao fundo. */
+/* Estrelas no fundo. */
 const stars = document.getElementById('stars');
-
-for (let i = 0; i < 55; i++) {
+for (let i = 0; i < 45; i++) {
   const star = document.createElement('span');
   star.className = 'star';
   star.textContent = Math.random() > .5 ? '✦' : '·';
@@ -534,9 +477,12 @@ for (let i = 0; i < 55; i++) {
   stars.appendChild(star);
 }
 
-/* Se a imagem não carregar, avisa como corrigir o nome do arquivo. */
-document.getElementById('invitation').addEventListener('error', function() {
-  hint.textContent = 'Coloque a imagem convite.png na mesma pasta do index.html';
+/* Aviso caso o arquivo de imagem esteja com nome ou local incorreto. */
+letter.addEventListener('error', function() {
+  hint.textContent = 'A imagem convite.png precisa estar junto do index.html';
+});
+zoomImage.addEventListener('error', function() {
+  hint.textContent = 'Confira se a imagem convite.png está publicada no GitHub';
 });
 </script>
 </body>
