@@ -4,95 +4,497 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07111d">
-<meta name="description" content="Você recebeu um convite especial para o chá revelação de Alec ou Liz.">
-<title>Um convite especial | Chá Revelação</title>
+<title>Chá Revelação | Alec ou Liz?</title>
+
 <style>
-:root{--navy:#07111d;--navy2:#0c1a2a;--gold:#d9ad69;--gold2:#f3d7a1;--cream:#fff7e9}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 35%,#17283a 0%,var(--navy) 62%,#03070d 100%);color:var(--cream);font-family:Georgia,'Times New Roman',serif;display:flex;align-items:center;justify-content:center;padding:24px 14px;overflow-x:hidden}
-.stars{position:fixed;inset:0;pointer-events:none;opacity:.65;background-image:radial-gradient(#d9ad69 1px,transparent 1.5px),radial-gradient(#f5dcb2 1px,transparent 1.5px);background-size:83px 91px,137px 121px;background-position:0 0,40px 25px;mask-image:linear-gradient(transparent,#000 15%,#000 85%,transparent)}
-.wrap{position:relative;width:min(100%,760px);text-align:center;z-index:1}
-.kicker{color:var(--gold2);letter-spacing:.22em;text-transform:uppercase;font-size:.72rem;margin:0 0 26px}
-h1{font-weight:400;font-size:clamp(1.55rem,5vw,2.5rem);letter-spacing:.06em;margin:0 0 10px}
-.intro{color:#e6d5b9;font-size:1rem;line-height:1.6;margin:0 auto 30px;max-width:390px}
-.envelope-stage{height:clamp(250px,62vw,360px);display:flex;align-items:center;justify-content:center;perspective:1100px;margin:0 auto 22px}
-.envelope{position:relative;width:min(88vw,420px);height:clamp(180px,43vw,260px);cursor:pointer;filter:drop-shadow(0 20px 30px #0008);transition:transform .3s ease}
-.envelope:hover{transform:translateY(-5px)}
-.env-back{position:absolute;inset:0;background:linear-gradient(145deg,#172c40,#091522 65%);border:1px solid #9d7947;border-radius:5px}
-.env-front{position:absolute;inset:0;background:linear-gradient(135deg,#13263a,#081421);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);border:1px solid #c49a5a}
-.env-left,.env-right{position:absolute;inset:0;background:linear-gradient(135deg,#1b3044,#0b1725);border:1px solid #b68b4c}
-.env-left{clip-path:polygon(0 0,50% 58%,0 100%)}.env-right{clip-path:polygon(100% 0,50% 58%,100% 100%)}
-.flap{position:absolute;inset:0;background:linear-gradient(145deg,#233b50,#0d1b2b);clip-path:polygon(0 0,100% 0,50% 62%);transform-origin:top;transition:transform .9s cubic-bezier(.2,.75,.2,1);z-index:4;filter:drop-shadow(0 3px 3px #0005)}
-.seal{position:absolute;z-index:5;left:50%;top:47%;transform:translate(-50%,-50%);width:65px;height:65px;border-radius:50%;display:grid;place-items:center;color:#f9e3b5;font-size:30px;background:radial-gradient(circle at 35% 25%,#e4bd7c,#9c682d 70%,#69401e);border:2px solid #f0d5a0;box-shadow:0 2px 8px #0008;transition:opacity .35s,transform .35s}
-.env-letter{position:absolute;z-index:2;left:7%;right:7%;bottom:8%;height:78%;background:#f8f0df;color:#1b2632;border:1px solid var(--gold);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:18px;transition:transform 1s cubic-bezier(.2,.75,.2,1);box-shadow:0 0 24px #0005}
-.letter-small{font-size:.67rem;letter-spacing:.2em;text-transform:uppercase;color:#9d733b}
-.letter-title{font-size:clamp(1.2rem,4vw,1.8rem);margin:10px 0;color:#18283a}
-.letter-heart{color:#c49a5a;font-size:1.5rem}
-.open .flap{transform:rotateX(180deg);z-index:1}
-.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
-.open .env-letter{transform:translateY(-72%);z-index:6}
-.open .envelope{cursor:default}
-.hint{color:var(--gold2);font-size:.9rem;letter-spacing:.04em;animation:pulse 1.8s infinite}
-@keyframes pulse{50%{opacity:.55}}
-.invite{display:none;opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s;margin:30px auto 0}
-.opened .invite{display:block}
-.opened .invite.show{opacity:1;transform:translateY(0)}
-.invite img{display:block;width:100%;height:auto;border:1px solid #b88b4e;box-shadow:0 18px 50px #0009;border-radius:3px}
-.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 0}
-.btn{appearance:none;border:1px solid var(--gold);border-radius:30px;padding:12px 18px;background:linear-gradient(135deg,#d9ad69,#a97838);color:#101722;font-weight:bold;font-family:inherit;font-size:.9rem;text-decoration:none;cursor:pointer}
-.btn.secondary{background:transparent;color:var(--gold2)}
-.footer{font-size:.75rem;color:#b7a58a;margin-top:24px;letter-spacing:.08em}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+:root {
+  --navy: #07111d;
+  --gold: #d9ad69;
+  --gold-light: #f5d9a0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 25px 14px 50px;
+  overflow-x: hidden;
+  color: #fff7e9;
+  text-align: center;
+  font-family: Georgia, serif;
+  background:
+    radial-gradient(ellipse at 50% 25%,
+    #203c52, #07111d 65%, #02060b);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .6;
+  background-image:
+    radial-gradient(#e5bf7b 1px, transparent 1.5px),
+    radial-gradient(#fff0ce 1px, transparent 1.5px);
+  background-size: 83px 91px, 137px 121px;
+  animation: stars 16s linear infinite;
+}
+
+@keyframes stars {
+  to {
+    background-position: 83px 91px, -137px 121px;
+  }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 760px);
+  margin: auto;
+}
+
+.kicker {
+  color: var(--gold-light);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+h1 {
+  font-size: clamp(25px, 5vw, 38px);
+  font-weight: normal;
+  margin-bottom: 12px;
+}
+
+.intro {
+  max-width: 410px;
+  margin: auto;
+  line-height: 1.7;
+  color: #e8d8bf;
+}
+
+.scene {
+  height: clamp(340px, 85vw, 455px);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  perspective: 1400px;
+}
+
+.envelope {
+  position: absolute;
+  bottom: 35px;
+  width: min(88vw, 440px);
+  height: clamp(190px, 48vw, 270px);
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 22px 28px #0009);
+}
+
+.back {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border: 1px solid #bd9456;
+  border-radius: 5px;
+  background: linear-gradient(145deg, #1b344a, #091522);
+}
+
+/* O convite começa escondido dentro do envelope */
+
+.letter {
+  position: absolute;
+  z-index: 2;
+  left: 5%;
+  width: 90%;
+  height: clamp(235px, 60vw, 350px);
+  bottom: 8px;
+  padding: 6px;
+  overflow: hidden;
+  background: #f8f0df;
+  border: 1px solid #e4c58f;
+  box-shadow: 0 5px 20px #0006;
+  transform: translateY(65%) scale(.94);
+  transform-origin: bottom center;
+  transition:
+    transform 1.5s cubic-bezier(.16, 1, .3, 1),
+    bottom 1.5s cubic-bezier(.16, 1, .3, 1),
+    box-shadow 1s;
+}
+
+.letter img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #07111d;
+}
+
+.side {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border: 1px solid #a9824c;
+  background: linear-gradient(135deg, #1b3348, #0a1725);
+}
+
+.left {
+  clip-path: polygon(0 0, 50% 58%, 0 100%);
+}
+
+.right {
+  clip-path: polygon(100% 0, 50% 58%, 100% 100%);
+}
+
+.bottom {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: linear-gradient(145deg, #20394d, #0a1725);
+  clip-path: polygon(0 100%, 50% 48%, 100% 100%);
+  border-bottom: 1px solid #c49a5a;
+}
+
+/* Aba superior articulada */
+
+.flap {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  background: linear-gradient(145deg, #29465b, #0c1b2b);
+  clip-path: polygon(0 0, 100% 0, 50% 62%);
+  filter: drop-shadow(0 8px 8px #0005);
+  transition: transform 1s cubic-bezier(.25, .8, .25, 1);
+}
+
+/* Selo dourado */
+
+.seal {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  top: 47%;
+  transform: translate(-50%, -50%);
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff0cf;
+  font-size: 30px;
+  background: radial-gradient(circle at 35% 25%,
+    #e9c985, #a16d31 70%, #69401e);
+  border: 2px solid #f0d5a0;
+  box-shadow: 0 3px 10px #0008;
+  transition:
+    opacity .3s,
+    transform .45s cubic-bezier(.2, 1.5, .4, 1);
+}
+
+.open-button {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.open-button:focus-visible {
+  outline: 3px solid var(--gold-light);
+  outline-offset: 7px;
+}
+
+.hint {
+  color: var(--gold-light);
+  font-size: 14px;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: .8;
+  }
+  50% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+/* Abertura do envelope */
+
+.open .flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.open .seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.15) rotate(35deg);
+}
+
+/* O convite desliza para fora */
+
+.open .letter {
+  transform: translateY(-16%) scale(1.02);
+  bottom: 73px;
+  box-shadow: 0 20px 45px #000a;
+}
+
+/* Brilhos */
+
+.spark {
+  position: absolute;
+  z-index: 13;
+  top: 33%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffe5ad;
+  box-shadow: 0 0 15px 5px #e8bd70;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.spark.a { left: 25%; }
+.spark.b { left: 75%; animation-delay: .15s; }
+.spark.c { left: 37%; animation-delay: .3s; }
+.spark.d { left: 65%; animation-delay: .08s; }
+
+.open .spark {
+  animation: twinkle 1.5s ease-out forwards;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(.2);
+  }
+  25% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translateY(-110px) scale(1.6);
+  }
+}
+
+.caption {
+  color: var(--gold-light);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-top: 4px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .6s, transform .6s;
+}
+
+.open .caption {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .85s;
+}
+
+.details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(20px);
+  transition:
+    max-height .8s,
+    opacity .7s,
+    transform .7s;
+  margin: 0 auto;
+}
+
+.open .details {
+  max-height: 200px;
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 1s;
+}
+
+.details p {
+  line-height: 1.8;
+  color: #e8d8bf;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #e8c27f, #a97838);
+  color: #101722;
+  font: bold 14px Georgia, serif;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px #0006;
+}
+
+.btn.alt {
+  background: transparent;
+  color: var(--gold-light);
+}
+
+footer {
+  font-size: 12px;
+  color: #b7a58a;
+  margin-top: 25px;
+  letter-spacing: 1px;
+}
+
+@media (min-width: 620px) {
+  .open .letter {
+    transform: translateY(-20%) scale(1.04);
+    bottom: 75px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
 </style>
 </head>
+
 <body>
-<div class="stars"></div>
-<main class="wrap" id="main">
+<main id="main">
+
   <p class="kicker">Um momento cheio de amor</p>
+
   <h1>Você recebeu um convite especial</h1>
-  <p class="intro">Uma surpresa está prestes a chegar e queremos dividir essa alegria com você.</p>
-  <div class="envelope-stage" id="stage">
-    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Abrir o envelope do convite">
-      <div class="env-back"></div>
-      <div class="env-letter"><div class="letter-small">Você está convidado para</div><div class="letter-title">Chá Revelação</div><div class="letter-heart">♥</div><div class="letter-small" style="margin-top:8px">Alec ou Liz?</div></div>
-      <div class="env-left"></div><div class="env-right"></div><div class="env-front"></div>
-      <div class="flap"></div><div class="seal">♥</div>
-    </div>
-  </div>
-  <p class="hint" id="hint">♡ Toque no envelope para abrir ♡</p>
-  <section class="invite" id="invite" aria-label="Convite do chá revelação">
-    <img src="convite.png" alt="Convite para o chá revelação de Alec ou Liz, dia 1 de novembro de 2026 às 15 horas, na Rua Agostiniana Chantal, número 30, Jardim Vila Carrão.">
-    <div class="actions">
-      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Rua+Agostiniana+Chantal+30+Jardim+Vila+Carr%C3%A3o+S%C3%A3o+Paulo" target="_blank" rel="noopener">Ver localização</a>
-      <button class="btn secondary" id="again" type="button">Ver envelope novamente</button>
+
+  <p class="intro">
+    Uma surpresa está prestes a chegar.
+    Toque no selo para abrir o envelope e revelar o convite.
+  </p>
+
+  <section class="scene" aria-label="Envelope de convite">
+
+    <div class="envelope">
+
+      <div class="back"></div>
+
+      <div class="letter">
+        <img src="convite.png"
+             alt="Convite do chá revelação de Alec ou Liz">
+      </div>
+
+      <div class="side left"></div>
+      <div class="side right"></div>
+      <div class="bottom"></div>
+
+      <div class="flap"></div>
+      <div class="seal">♥</div>
+
+      <span class="spark a"></span>
+      <span class="spark b"></span>
+      <span class="spark c"></span>
+      <span class="spark d"></span>
+
+      <button class="open-button" id="open"
+              aria-label="Abrir envelope"></button>
+
     </div>
   </section>
-  <p class="footer">Com carinho, esperamos você nesse dia especial ♥</p>
+
+  <p class="hint" id="hint">
+    ♡ Toque no envelope para abrir ♡
+  </p>
+
+  <p class="caption">
+    UM CONVITE FEITO COM AMOR PARA VOCÊ
+  </p>
+
+  <section class="details" id="details">
+
+    <p>
+      📅 01 de novembro de 2026 · 15h<br>
+      📍 Rua Agostiniana Chantal, nº 30 — Jardim Vila Carrão
+    </p>
+
+    <div class="buttons">
+
+      <a class="btn"
+         href="https://www.google.com/maps/search/?api=1&query=Rua+Agostiniana+Chantal+30+Jardim+Vila+Carr%C3%A3o+S%C3%A3o+Paulo"
+         target="_blank" rel="noopener">
+        Ver localização
+      </a>
+
+      <button class="btn alt" id="close" type="button">
+        Fechar envelope
+      </button>
+
+    </div>
+  </section>
+
+  <footer>
+    Com carinho, esperamos você nesse dia especial ♥
+  </footer>
+
 </main>
+
 <script>
-const main=document.getElementById('main');
-const envelope=document.getElementById('envelope');
-const hint=document.getElementById('hint');
-const invite=document.getElementById('invite');
-function openInvite(){
- if(main.classList.contains('opened')) return;
- main.classList.add('open');
- hint.textContent='♡ Preparando uma surpresa para você… ♡';
- setTimeout(()=>{
-   main.classList.add('opened');
-   invite.classList.add('show');
-   hint.textContent='♡ Um convite feito com amor ♡';
-   invite.scrollIntoView({behavior:'smooth',block:'start'});
- },850);
-}
-envelope.addEventListener('click',openInvite);
-envelope.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openInvite();}});
-document.getElementById('again').addEventListener('click',()=>{
- main.classList.remove('open','opened');
- invite.classList.remove('show');
- hint.textContent='♡ Toque no envelope para abrir ♡';
- window.scrollTo({top:0,behavior:'smooth'});
+const main = document.getElementById('main');
+const openBtn = document.getElementById('open');
+const hint = document.getElementById('hint');
+
+let opened = false;
+
+openBtn.addEventListener('click', () => {
+  if (opened) return;
+
+  opened = true;
+  main.classList.add('open');
+  openBtn.disabled = true;
+
+  hint.textContent = '♡ O convite está deslizando para fora… ♡';
+
+  setTimeout(() => {
+    hint.textContent = '♡ Seu convite está aqui! ♡';
+  }, 1150);
+
+  setTimeout(() => {
+    document.getElementById('details').scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+  }, 1550);
+});
+
+document.getElementById('close').addEventListener('click', () => {
+  opened = false;
+  main.classList.remove('open');
+  openBtn.disabled = false;
+
+  hint.textContent = '♡ Toque no envelope para abrir ♡';
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 });
 </script>
 </body>
